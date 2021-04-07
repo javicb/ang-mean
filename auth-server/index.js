@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
+
+// console.log(process.env);
 
 // Crear el servidor/aplicación de express
 const app = express();
 
 
-// MIDDELWARES
+// MIDDLEWARE
 // Cors
 app.use(cors());
 // Lectura y parseo del body
@@ -14,6 +17,6 @@ app.use(express.json())
 app.use('/api/auth', require('./routes/auth'));
 
 
-app.listen(3000, () => {
-  console.log(`servidor ejecutandose en el puerto ${3000}`);
+app.listen(process.env.PORT, () => {
+  console.log(`servidor ejecutandose en el puerto ${process.env.PORT}`);
 });
