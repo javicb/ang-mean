@@ -8,7 +8,10 @@ require('dotenv').config();
 const app = express();
 
 
+
 // MIDDLEWARE
+// Directorio público
+app.use(express.static('public'));
 // Cors
 app.use(cors());
 // Lectura y parseo del body
