@@ -50,6 +50,10 @@ export class AuthService {
       );
   }
 
+  logout(): void {
+    localStorage.clear();
+  }
+
   almacenarLogalStorage(resp: AuthResponse): void {
     localStorage.setItem('token', resp.token!);
     this._usuario = {
