@@ -46,7 +46,7 @@ const crearUsuario = async (req, res = response) => {
       ok: false,
       msn: 'Póngase en contacto con el administrador'
     })
-  };
+  }
 };
 
 const loginUsuario = async (req, res = response) => {
