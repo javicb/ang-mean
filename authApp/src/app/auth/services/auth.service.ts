@@ -28,10 +28,6 @@ export class AuthService {
         tap(resp => {
           if (resp.ok) {
             this.almacenarLogalStorage(resp);
-            this._usuario = {
-              name: resp.name!,
-              uid: resp.uid
-            }
           }
         }),
         map(resp => resp.ok),
@@ -60,6 +56,7 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/renew`;
     const headers = new HttpHeaders()
       .set('x-token', localStorage.getItem('token') || '');
+
     return this.http.get<AuthResponse>(url, { headers })
       .pipe(
         map(resp => {
@@ -78,7 +75,8 @@ export class AuthService {
     localStorage.setItem('token', resp.token!);
     this._usuario = {
       name: resp.name!,
-      uid: resp.uid
+      uid: resp.uid,
+      email: resp.email!
     }
   }
 }
