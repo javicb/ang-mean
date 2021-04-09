@@ -28,11 +28,7 @@ export class AuthService {
       .pipe(
         tap(resp => {
           if (resp.ok) {
-            localStorage.setItem('token', resp.token!);
-            this._usuario = {
-              name: resp.name!,
-              uid: resp.uid
-            }
+            this.almacenarLogalStorage(resp);
           }
         }),
         map(resp => resp.ok),
@@ -47,9 +43,18 @@ export class AuthService {
     return this.http.get<AuthResponse>(url, { headers })
       .pipe(
         map(resp => {
+          this.almacenarLogalStorage(resp);
           return resp.ok
         }),
         catchError(err => of(false))
       );
+  }
+
+  almacenarLogalStorage(resp: AuthResponse): void {
+    localStorage.setItem('token', resp.token!);
+    this._usuario = {
+      name: resp.name!,
+      uid: resp.uid
+    }
   }
 }
