@@ -19,6 +19,26 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  registro(name: string, email: string, password: string): Observable<any> {
+    const url = `${this.baseUrl}/auth/new`;
+    const body = { name, email, password };
+
+    return this.http.post<AuthResponse>(url, body)
+      .pipe(
+        tap(resp => {
+          if (resp.ok) {
+            this.almacenarLogalStorage(resp);
+            this._usuario = {
+              name: resp.name!,
+              uid: resp.uid
+            }
+          }
+        }),
+        map(resp => resp.ok),
+        catchError(err => of(err.error.msg))
+      );
+  }
+
   login(email: string, password: string): Observable<any> {
 
     const url = `${this.baseUrl}/auth`;
